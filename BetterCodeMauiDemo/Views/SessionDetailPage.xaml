@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BetterCodeMauiDemo.Views.SessionDetailPage"
+             xmlns:vm="clr-namespace:BetterCodeMauiDemo.ViewModels"
+             x:DataType="vm:SessionDetailPageViewModel"
+             Title="Programm">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="HeadingStyle" TargetType="Label">
+                <Setter Property="FontSize" Value="Large"/>
+                <Setter Property="Margin" Value="10 0 10 0"/>
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout Padding="20">
+                <Label Text="{Binding Session.Title}"  FontSize="Title" Margin="10 0 20 0"/>
+                <Label Text="{Binding Session.Description}"/>
+                <Label Text="Lernziele" Style="{StaticResource HeadingStyle}"/>
+                <VerticalStackLayout BindableLayout.ItemsSource="{Binding Session.Goals}">
+                    <BindableLayout.ItemTemplate>
+                        <DataTemplate>
+                            <HorizontalStackLayout Padding="3">
+                                <Label Text="&#x2022; "/>
+                                <Label Text="{Binding .}"/>
+                            </HorizontalStackLayout>
+                        </DataTemplate>
+                    </BindableLayout.ItemTemplate>
+                </VerticalStackLayout>
+                <Label Text="Speaker" Style="{StaticResource HeadingStyle}"/>
+                <Image Source="{Binding Session.Speaker.Image}"/>
+                <Label Text="{Binding Session.Speaker.Bio}" Margin="10 0 10 0" />
+                <Label Text="{Binding Session.Speaker.TwitterUrl}" TextColor="Blue">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding OpenTwitterCommand}"/>
+                    </Label.GestureRecognizers>
+                </Label>
+                <Button Text="Sprecher jetzt anrufen" Command="{Binding CallSpeakerCommand}" Margin="10 0 10 0"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

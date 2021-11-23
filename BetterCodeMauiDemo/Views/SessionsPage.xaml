@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BetterCodeMauiDemo.Views.SessionsPage"
+             xmlns:vm="clr-namespace:BetterCodeMauiDemo.ViewModels"
+             xmlns:views="clr-namespace:BetterCodeMauiDemo.Views"
+             xmlns:models="clr-namespace:BetterCodeMauiDemo.Models"
+             x:DataType="vm:SessionsPageViewModel"
+             Title="Programm">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <DataTemplate x:Key="breakTemplate">
+                <VerticalStackLayout BackgroundColor="LightGray" x:DataType="models:Session" Margin="0 0 10 0" Padding="10">
+                    <HorizontalStackLayout>
+                        <Label Text="{Binding Start}"/>
+                        <Label Text=" - "/>
+                        <Label Text="{Binding End}"/>
+                    </HorizontalStackLayout>
+                    <Label Text="{Binding Title}" FontSize="Large"/>
+                </VerticalStackLayout>
+            </DataTemplate>
+            <DataTemplate x:Key="sessionTemplate" x:DataType="models:Session">
+                <Grid RowDefinitions="auto, auto, auto" ColumnDefinitions="auto, *" Padding="10 0 10 0">
+                    <HorizontalStackLayout Grid.Column="1" BackgroundColor="LightGray">
+                        <Label Text="{Binding Start}"/>
+                        <Label Text=" - "/>
+                        <Label Text="{Binding End}"/>
+                    </HorizontalStackLayout>
+                    <Image Source="{Binding Speaker.Image}" 
+                           Grid.RowSpan="3"
+                           WidthRequest="100" HeightRequest="100" Margin="0 10 0 0" />
+                    <Label Text="{Binding Title}" Grid.Row="1" Grid.Column="1" 
+                           FontSize="18"
+                           BackgroundColor="{StaticResource PrimaryColor}" 
+                           TextColor="{StaticResource SecondaryColor}" Padding="5"/>
+                    <Label Text="{Binding Speaker.Name}" Grid.Row="2" Grid.Column="1"/>
+                    <Grid.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SessionsPageViewModel}}, Path = NavigateToDetailsCommand }" CommandParameter="{Binding Id}"/>
+                    </Grid.GestureRecognizers>
+                </Grid>
+            </DataTemplate>
+            <views:SessionDataTemplateSelector x:Key="sessionDataTemplateSelector"
+                                               SessionTemplate="{StaticResource sessionTemplate}"
+                                               BreakTemplate="{StaticResource breakTemplate}"/>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <ScrollView>
+            <VerticalStackLayout>
+                <Label Text="Programm"  FontSize="Title" Margin="10 10 20 10"/>
+                <CollectionView ItemsSource="{Binding Sessions}" 
+                            ItemTemplate="{StaticResource sessionDataTemplateSelector}"/>
+            </VerticalStackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

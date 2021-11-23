@@ -1,0 +1,34 @@
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="BetterCodeMauiDemo.Views.MainPage"
+             BackgroundColor="{DynamicResource SecondaryColor}"
+             Title="Start">
+
+    <ContentPage.Resources>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="Medium"/>
+            <Setter Property="HorizontalTextAlignment" Value="Center"/>
+            <Setter Property="TextColor" Value="{StaticResource SecondaryColor}"/>
+        </Style>
+        <Style TargetType="VerticalStackLayout">
+            <Setter Property="Spacing" Value="30"/>
+            <Setter Property="Padding" Value="10"/>
+        </Style>
+    </ContentPage.Resources>
+    <VerticalStackLayout>
+        <VerticalStackLayout.Background>
+            <LinearGradientBrush>
+                <GradientStop Color="{StaticResource PrimaryColor}" Offset="0.1"></GradientStop>
+                <GradientStop Color="{StaticResource SecondaryColor}" Offset="1.0"></GradientStop>
+            </LinearGradientBrush>
+        </VerticalStackLayout.Background>
+        <Label Margin="20 0 0 0" TextType="Html" FontSize="30">
+            <![CDATA[
+            better <strong>Code()</strong>
+            ]]>
+        </Label>
+        <Label FontSize="50">.NET 6</Label>
+        <Label>Das Online-Event von Heise und IT-Visions.de &#10; zum neuen LTS-Release</Label>
+        <Label FontAttributes="Bold">23. November 2021</Label>
+    </VerticalStackLayout>
+</ContentPage>
